@@ -1,0 +1,29 @@
+1迭代mapreduce计算任务
+	 著名的页面排序算法 pagerank 就是需要用循环迭代 mapreduce计算求解的问题
+	第n次迭代后的结果与第n-1次的结果小于某个指定的阀值时结束， 也可以通过经验 确定执行多少次结束循环。也可以。
+2顺序组合式mapreduce作业的执行
+	mapreduce - 1 ---》mapreduce - 2 ----》 mapreduce --3
+
+3 具有复杂依赖关系的组合式mapreduce 作业的执行
+例如 x处理一个数据集 y 处理一个数据集 z将x，y的数据集 合并 则z需要x，y都完成数据处理 方可执行。
+job.adddependingjob(jobz) JobControl jc   jc.addjob  jc.run即可
+
+4 mapreduce 前处理和后处理步骤的链式执行
+应用 ：文档倒排索引前需要去除一个停用词
+ 	  文档倒排索引后需要对变形词进行处理 making  和 make 都累加为make 单词的出现次数。
+chainmapper
+chainreducer
+假设一个完整的mapreducer作业由 map1 ，map2，reduce，map3，map4 构成
+实现代码如下
+//初始化作业
+Configuration conf = new Configuration();
+Job job = new Job(conf);
+job.setJobName("chainJob");
+job.setInputFormat(TextInputFormat.class);
+job.setOutputFormat(TextOutputFormat.class);
+FileInputFormat.setInputPath(job,in);
+FileOutputFormat.setOutputPath(job,out);
+//在chainmapper 中加入map1 和 map2
+Configuration map1conf = new Configuration(false);
+ChainMapper.addMapper(xxxxx,xxx,xxx,xxx,xxx,xxx,xxx,map1conf);
+等等
