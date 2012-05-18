@@ -59,14 +59,11 @@ public class IntSumReducer extends Reducer<Text, IntWritable, Text, IntWritable>
 
 		FileOutputFormat.setOutputPath(job, new Path("hdfs://n82:9100/user/z42/ceshitestout9"));
 
+		//最大num *节点数　* 0.95
 		job.setNumReduceTasks(1);
 
 		job.waitForCompletion(true);
 
-
-		System.out.println("sdfsdf");
-		System.out.println(con.get("fs.default.name"));
-		System.out.println(con.get("mapred.job.tracker"));
 	}
 
 
