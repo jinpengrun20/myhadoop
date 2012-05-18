@@ -30,7 +30,7 @@ public class Lower_Or_UpperCase extends UDF {
 		else if(add_or_jian.equals("add")){
 			return i+100;
 		}else {
-			return i-100;
+			return i-100;	
 		}
 	}
 }
